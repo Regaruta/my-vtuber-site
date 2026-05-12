@@ -1,0 +1,562 @@
+# VTuber × ゲームUI風 ホームページ テンプレ
+
+以下のコードを `index.html` として保存すると、VTuber風＋ゲームUI風の1ページサイトとして動きます。
+
+```html
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON ARIA</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050816;
+    color:white;
+    font-family:'Noto Sans JP',sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at top,#14356d55,transparent 50%),
+    radial-gradient(circle at bottom,#00b7ff22,transparent 40%);
+    z-index:-2;
+}
+
+.grid-bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-1;
+}
+
+header{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:80px 10%;
+    gap:50px;
+}
+
+.hero-left{
+    flex:1;
+}
+
+.hero-right{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.logo{
+    font-size:18px;
+    letter-spacing:5px;
+    color:#5ad7ff;
+    margin-bottom:20px;
+    font-family:'Orbitron',sans-serif;
+}
+
+h1{
+    font-size:80px;
+    line-height:1;
+    margin-bottom:20px;
+    font-family:'Orbitron',sans-serif;
+    text-shadow:0 0 20px #00bfff;
+}
+
+.hero-sub{
+    font-size:22px;
+    color:#cfd8ff;
+    margin-bottom:30px;
+}
+
+.hero-desc{
+    max-width:600px;
+    line-height:1.8;
+    color:#b8c3e0;
+}
+
+.buttons{
+    display:flex;
+    gap:20px;
+    margin-top:40px;
+}
+
+.btn{
+    padding:16px 34px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#00bfff,#6f7dff);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 0 20px #00bfff55;
+}
+
+.btn:hover{
+    transform:translateY(-4px) scale(1.03);
+    box-shadow:0 0 30px #00bfffaa;
+}
+
+.outline{
+    background:transparent;
+    border:1px solid #4acfff;
+}
+
+.character-frame{
+    width:420px;
+    height:620px;
+    border:2px solid #2ccfff;
+    border-radius:30px;
+    overflow:hidden;
+    position:relative;
+    background:#0b1329;
+    box-shadow:
+    0 0 40px #00bfff55,
+    inset 0 0 40px #00bfff22;
+}
+
+.character-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.character-tag{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    background:#061120dd;
+    border:1px solid #2ccfff;
+    padding:12px 18px;
+    border-radius:12px;
+    backdrop-filter:blur(8px);
+}
+
+section{
+    padding:100px 10%;
+}
+
+.section-title{
+    font-size:48px;
+    margin-bottom:50px;
+    font-family:'Orbitron',sans-serif;
+    color:#70dfff;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.panel{
+    background:rgba(11,19,41,0.8);
+    border:1px solid #22446d;
+    border-radius:24px;
+    padding:30px;
+    backdrop-filter:blur(10px);
+    transition:0.3s;
+}
+
+.panel:hover{
+    transform:translateY(-6px);
+    border-color:#4ccfff;
+    box-shadow:0 0 30px #00bfff33;
+}
+
+.panel h3{
+    margin-bottom:15px;
+    color:#77e4ff;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px;
+}
+
+.gallery-item{
+    position:relative;
+    overflow:hidden;
+    border-radius:24px;
+    border:1px solid #284b77;
+}
+
+.gallery-item img{
+    width:100%;
+    height:380px;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+.gallery-item:hover img{
+    transform:scale(1.05);
+}
+
+.overlay{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:20px;
+    background:linear-gradient(transparent,#000000dd);
+}
+
+.status-ui{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.stat-box{
+    background:#0b1329;
+    border:1px solid #315c8f;
+    padding:24px;
+    border-radius:20px;
+}
+
+.stat-title{
+    color:#87dfff;
+    margin-bottom:10px;
+}
+
+.bar{
+    height:12px;
+    background:#12213f;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.fill{
+    height:100%;
+    background:linear-gradient(90deg,#00c3ff,#6f7dff);
+}
+
+footer{
+    padding:50px 10%;
+    text-align:center;
+    color:#8ea6cc;
+}
+
+@media(max-width:1000px){
+
+header{
+    flex-direction:column;
+    text-align:center;
+}
+
+.buttons{
+    justify-content:center;
+}
+
+h1{
+    font-size:56px;
+}
+
+.character-frame{
+    width:100%;
+    max-width:420px;
+    height:560px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<header>
+
+<div class="hero-left">
+
+<div class="logo">VIRTUAL PROJECT</div>
+
+<h1>NEON<br>ARIA</h1>
+
+<p class="hero-sub">
+Cyber VTuber / Illustration Creator
+</p>
+
+<p class="hero-desc">
+ネオン都市から現れたバーチャル配信者。
+ゲーム・イラスト・音楽をテーマに活動中。
+未来都市をイメージした世界観でコンテンツを制作している。
+</p>
+
+<div class="buttons">
+<button class="btn">ENTER SYSTEM</button>
+<button class="btn outline">WATCH STREAM</button>
+</div>
+
+</div>
+
+<div class="hero-right">
+
+<div class="character-frame">
+<img src="https://picsum.photos/600/900?random=10">
+
+<div class="character-tag">
+<h3>ARIA_01</h3>
+<p>ONLINE</p>
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<section>
+
+<h2 class="section-title">PROFILE</h2>
+
+<div class="profile-grid">
+
+<div class="panel">
+<h3>NAME</h3>
+<p>Neon Aria</p>
+</div>
+
+<div class="panel">
+<h3>TYPE</h3>
+<p>Cyber Singer / Gamer</p>
+</div>
+
+<div class="panel">
+<h3>LIKE</h3>
+<p>Rhythm Games / Anime / Art</p>
+</div>
+
+<div class="panel">
+<h3>LORE</h3>
+<p>
+崩壊したデータ都市から配信を続けるAI系VTuber。
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">STATUS</h2>
+
+<div class="status-ui">
+
+<div class="stat-box">
+<div class="stat-title">STREAM ENERGY</div>
+<div class="bar"><div class="fill" style="width:92%"></div></div>
+</div>
+
+<div class="stat-box">
+<div class="stat-title">ART SKILL</div>
+<div class="bar"><div class="fill" style="width:88%"></div></div>
+</div>
+
+<div class="stat-box">
+<div class="stat-title">MEME POWER</div>
+<div class="bar"><div class="fill" style="width:76%"></div></div>
+</div>
+
+<div class="stat-box">
+<div class="stat-title">CHAOS LEVEL</div>
+<div class="bar"><div class="fill" style="width:99%"></div></div>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">GALLERY</h2>
+
+<div class="gallery">
+
+<div class="gallery-item">
+<img src="https://picsum.photos/500/700?random=1">
+<div class="overlay">
+<h3>Cyber Idol</h3>
+</div>
+</div>
+
+<div class="gallery-item">
+<img src="https://picsum.photos/500/700?random=2">
+<div class="overlay">
+<h3>Moonlight Mode</h3>
+</div>
+</div>
+
+<div class="gallery-item">
+<img src="https://picsum.photos/500/700?random=3">
+<div class="overlay">
+<h3>Virtual Live</h3>
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">SOCIAL LINK</h2>
+
+<div class="profile-grid">
+
+<div class="panel">
+<h3>YouTube</h3>
+<p>配信リンク</p>
+</div>
+
+<div class="panel">
+<h3>X / Twitter</h3>
+<p>SNSリンク</p>
+</div>
+
+<div class="panel">
+<h3>Booth</h3>
+<p>グッズ販売</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 NEON ARIA PROJECT
+</footer>
+
+</body>
+</html>
+```
+
+---
+
+# 使い方
+
+## 1.
+
+メモ帳を開く
+
+## 2.
+
+上のコードを全部貼る
+
+## 3.
+
+```txt
+index.html
+```
+
+で保存
+
+保存時は：
+
+* 「ファイルの種類」→ すべてのファイル
+* 文字コード → UTF-8
+
+にする。
+
+---
+
+# 画像を自分のものに変更する方法
+
+以下を変更：
+
+```html
+<img src="画像URL">
+```
+
+例えば：
+
+```html
+<img src="mycharacter.png">
+```
+
+同じフォルダに画像を入れればOK。
+
+---
+
+# 今後追加すると強いもの
+
+* Live2D風モーション
+* ローディング演出
+* BGM
+* マウス追従エフェクト
+* パーティクル
+* キャラクター選択UI
+* LoLクライアント風メニュー
+* 動く背景
+* 配信スケジュール
+* YouTube埋め込み
+* OBS風UI
+
+---
+
+# 本格的に運営するならおすすめ
+
+## 無料公開
+
+* GitHub Pages
+
+## ドメイン
+
+* お名前.com
+* Cloudflare
+
+## デザイン参考
+
+* ホロライブ公式
+* Riot Games
+* VALORANT UI
+* ブルーアーカイブ
+* 崩壊スターレイル
+* NIKKE
+
+---
+
+# 次にできること
+
+次はさらに本格化できます。
+
+例えば：
+
+* 「LoLクライアント風」にする
+* 「ブルアカ風UI」にする
+* 「ホロライブ公式サイト風」にする
+* 「Live2Dっぽく動かす」
+* 「近未来サイバーUI化」
+* 「本当にVTuber事務所っぽくする」
+* 「配信待機画面風」
+* 「スマホ完全対応」
+* 「本物っぽいローディング演出」
+
+なども作れます。
