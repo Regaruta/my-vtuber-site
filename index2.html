@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEON ARIA</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050816;
+    color:white;
+    font-family:sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:
+    radial-gradient(circle at top,#14356d55,transparent 50%),
+    radial-gradient(circle at bottom,#00b7ff22,transparent 40%);
+    z-index:-2;
+}
+
+.grid-bg{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    z-index:-1;
+}
+
+header{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:80px 10%;
+    gap:50px;
+}
+
+.hero-left{
+    flex:1;
+}
+
+.hero-right{
+    flex:1;
+    display:flex;
+    justify-content:center;
+}
+
+.logo{
+    font-size:18px;
+    letter-spacing:5px;
+    color:#5ad7ff;
+    margin-bottom:20px;
+}
+
+h1{
+    font-size:80px;
+    line-height:1;
+    margin-bottom:20px;
+    text-shadow:0 0 20px #00bfff;
+}
+
+.hero-sub{
+    font-size:22px;
+    color:#cfd8ff;
+    margin-bottom:30px;
+}
+
+.hero-desc{
+    max-width:600px;
+    line-height:1.8;
+    color:#b8c3e0;
+}
+
+.buttons{
+    display:flex;
+    gap:20px;
+    margin-top:40px;
+}
+
+.btn{
+    padding:16px 34px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#00bfff,#6f7dff);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.character-frame{
+    width:420px;
+    height:620px;
+    border:2px solid #2ccfff;
+    border-radius:30px;
+    overflow:hidden;
+    background:#0b1329;
+}
+
+.character-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+section{
+    padding:100px 10%;
+}
+
+.section-title{
+    font-size:48px;
+    margin-bottom:50px;
+    color:#70dfff;
+}
+
+.profile-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.panel{
+    background:rgba(11,19,41,0.8);
+    border:1px solid #22446d;
+    border-radius:24px;
+    padding:30px;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:24px;
+}
+
+.gallery-item{
+    overflow:hidden;
+    border-radius:24px;
+}
+
+.gallery-item img{
+    width:100%;
+    height:380px;
+    object-fit:cover;
+}
+
+footer{
+    padding:50px;
+    text-align:center;
+    color:#8ea6cc;
+}
+
+@media(max-width:1000px){
+header{
+    flex-direction:column;
+    text-align:center;
+}
+h1{
+    font-size:56px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<header>
+
+<div class="hero-left">
+
+<div class="logo">VIRTUAL PROJECT</div>
+
+<h1>NEON<br>ARIA</h1>
+
+<p class="hero-sub">
+Cyber VTuber / Illustration Creator
+</p>
+
+<p class="hero-desc">
+レガルタの趣味嗜好のホームページ。
+ゲーム・イラスト・将棋をテーマに模索。
+</p>
+
+<div class="buttons">
+<button class="btn">ENTER SYSTEM</button>
+<button class="btn">WATCH STREAM</button>
+</div>
+
+</div>
+
+<div class="hero-right">
+
+<div class="character-frame">
+<img src="https://picsum.photos/600/900?random=10">
+</div>
+
+</div>
+
+</header>
+
+<section>
+
+<h2 class="section-title">PROFILE</h2>
+
+<div class="profile-grid">
+
+<div class="panel">
+<h3>NAME</h3>
+<p>Neon Aria</p>
+</div>
+
+<div class="panel">
+<h3>TYPE</h3>
+<p>Cyber Singer / Gamer</p>
+</div>
+
+<div class="panel">
+<h3>LIKE</h3>
+<p>Rhythm Games / Anime / Art</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">GALLERY</h2>
+
+<div class="gallery">
+
+<div class="gallery-item">
+<img src="https://picsum.photos/500/700?random=1">
+</div>
+
+<div class="gallery-item">
+<img src="https://picsum.photos/500/700?random=2">
+</div>
+
+<div class="gallery-item">
+<img src="https://picsum.photos/500/700?random=3">
+</div>
+
+</div>
+
+</section>
+
+<footer>
+© 2026 NEON ARIA PROJECT
+</footer>
+
+</body>
+</html>
